@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDIM_11tWhqSVJLWwS1aZ-7SbRQOuBUE8Y",
-  authDomain: "blood-donation-33ad7.firebaseapp.com",
-  projectId: "blood-donation-33ad7",
-  storageBucket: "blood-donation-33ad7.firebasestorage.app",
-  messagingSenderId: "174122879290",
-  appId: "1:174122879290:web:a4af2bab64db97691fe803"
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId
 };
 
 // Initialize Firebase

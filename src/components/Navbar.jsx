@@ -113,13 +113,13 @@ const Navbar = () => {
                                 user ? (
                                     <div className="login-btn flex gap-3 lg:gap-5 items-center">
                                         <img
-                                            className='w-8 h-8 lg:w-10 lg:h-10 rounded-full object-cover ring-2 ring-[#2F4464] ring-offset-2'
+                                            className='w-8 h-8 lg:w-10 lg:h-10 rounded-full object-cover ring-2 ring-[#EA1241] ring-offset-2'
                                             src={user.photoURL}
                                             alt="User Profile"
                                         />
                                         <button
                                          onClick={handleLogOut} 
-                                        className="btn bg-[#2F4464] text-white px-6 lg:px-10">Log Out</button>
+                                        className="btn bg-[#EA1241] text-white px-6 lg:px-10">Log Out</button>
                                     </div>
                                 ) : (
                                     <div className='flex justify-center items-center gap-2 lg:gap-3 ml-3'>

@@ -13,7 +13,7 @@ const Banner = () => {
             />
 
             {/* Banner Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#070211FF] to-[#07021100] pointer-events-none"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-[#070211FF] to-[#07021100] pointer-events-none"></div>
 
             <div className="absolute inset-0 flex flex-col items-center justify-center text-white overflow-hidden">
                 <h1 className="font-geom text-6xl font-black">Blood Can Save a Life, Share It</h1>
