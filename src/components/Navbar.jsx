@@ -28,7 +28,7 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to="/" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Home</NavLink></li>
         <li><NavLink to="/all-artworks" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donation requests</NavLink></li>
-        <li><NavLink to="/add-artwork" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Add Artwork</NavLink></li>
+        <li><NavLink to="/dashboard" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Dashboard</NavLink></li>
         {
             user && (<>
                 <li><NavLink to="/my-gallery" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>My Gallery</NavLink></li>
