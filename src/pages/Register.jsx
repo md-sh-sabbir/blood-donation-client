@@ -168,7 +168,7 @@ const Register = () => {
                                 <select value={upazila} onChange={(e) => setUpazila(e.target.value)} className='select'>
                                     <option disabled selected value=''>Select Your Upazila</option>
                                     {
-                                        upazilas.map(d => <option value={d?.name} key={d.id}>{d?.name}</option>)
+                                        upazilas.map(u => <option value={u?.name} key={u.id}>{u?.name}</option>)
                                     }
                                 </select>
 
