@@ -38,7 +38,7 @@ const DonationCard = ({ request }) => {
 
             {/* View Details Button */}
             <Link
-                to={`/donation-request/${request._id}`}
+                to={`/donation-request/${request._id}`} state={request}
                 className="inline-block px-6 py-3 bg-[#EA1241] hover:bg-[#d10f38] text-white font-semibold rounded-lg transition-colors duration-200"
             >
                 View Details

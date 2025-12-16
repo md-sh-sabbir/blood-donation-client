@@ -12,7 +12,7 @@ const DonorMenu = () => {
             ></MenuItem>
             <MenuItem icon={BiDonateBlood} 
                 label='My Donation Requests'
-                address='/my-donation-requests'
+                address='/dashboard/my-donation-requests'
             ></MenuItem>
         </div>
     );
