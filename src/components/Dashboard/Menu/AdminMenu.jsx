@@ -8,7 +8,7 @@ const AdminMenu = () => {
         <div>
             <MenuItem icon={FaUsers}
                 label='All Users'
-                address='/all-users'
+                address='/dashboard/all-users'
             ></MenuItem>
             <MenuItem icon={BiDonateBlood}
                 label='All Donation Requests'
