@@ -3,7 +3,7 @@ import useAxios from '../../../hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../providers/AuthContext';
 
-const MyDonationReq = () => {
+const AllDonationRequest = () => {
     const axiosSecure = useAxios();
     const { user } = use(AuthContext);
     const [statusFilter, setStatusFilter] = useState('all');
@@ -11,10 +11,10 @@ const MyDonationReq = () => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ["my-donation-requests", user?.email, currentPage, itemsPerPage],
+        queryKey: ["admin-all-donation-requests", user?.email, currentPage, itemsPerPage],
         queryFn: async () => {
             const res = await axiosSecure.get(
-                `/my-donation-requests/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
+                `/admin-all-donation-requests?page=${currentPage}&size=${itemsPerPage}`
             );
             return res.data;
         },
@@ -94,7 +94,7 @@ const MyDonationReq = () => {
         <div className="min-h-screen bg-gray-50 py-8 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Page Title */}
-                <h1 className="text-4xl font-bold text-gray-800 mb-8">My Donation Requests</h1>
+                <h1 className="text-4xl font-bold text-gray-800 mb-8">All Donation Requests</h1>
 
                 {/* Filter Buttons */}
                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -258,4 +258,4 @@ const MyDonationReq = () => {
     );
 };
 
-export default MyDonationReq;
+export default AllDonationRequest;

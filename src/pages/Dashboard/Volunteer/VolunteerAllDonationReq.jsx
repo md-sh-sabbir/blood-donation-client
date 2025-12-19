@@ -2,19 +2,24 @@ import React, { use, useState } from 'react';
 import useAxios from '../../../hooks/useAxios';
 import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../../providers/AuthContext';
+import UpdateStatusModal from '../../../components/Dashboard/Modal/UpdateStatusModal'
 
-const MyDonationReq = () => {
+const VolunteerAllDonationReq = () => {
     const axiosSecure = useAxios();
     const { user } = use(AuthContext);
     const [statusFilter, setStatusFilter] = useState('all');
     const [itemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0);
+    
+    // FIX: Track which specific request's modal is open
+    const [selectedRequest, setSelectedRequest] = useState(null);
+    const closeModal = () => setSelectedRequest(null);
 
-    const { data, isLoading, error } = useQuery({
-        queryKey: ["my-donation-requests", user?.email, currentPage, itemsPerPage],
+    const { data, isLoading, error, refetch } = useQuery({
+        queryKey: ["admin-all-donation-requests", currentPage, itemsPerPage],
         queryFn: async () => {
             const res = await axiosSecure.get(
-                `/my-donation-requests/${user?.email}?page=${currentPage}&size=${itemsPerPage}`
+                `/admin-all-donation-requests?page=${currentPage}&size=${itemsPerPage}`
             );
             return res.data;
         },
@@ -66,8 +71,6 @@ const MyDonationReq = () => {
         setCurrentPage(pageNumber - 1);
     };
 
-   
-
     if (isLoading) {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -94,7 +97,7 @@ const MyDonationReq = () => {
         <div className="min-h-screen bg-gray-50 py-8 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Page Title */}
-                <h1 className="text-4xl font-bold text-gray-800 mb-8">My Donation Requests</h1>
+                <h1 className="text-4xl font-bold text-gray-800 mb-8">All Donation Requests</h1>
 
                 {/* Filter Buttons */}
                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
@@ -102,59 +105,52 @@ const MyDonationReq = () => {
                     <div className="flex flex-wrap gap-3">
                         <button
                             onClick={() => setStatusFilter('all')}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                statusFilter === 'all'
-                                    ? 'bg-[#EA1241] text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${statusFilter === 'all'
+                                ? 'bg-[#EA1241] text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                }`}
                         >
                             All
                         </button>
                         <button
                             onClick={() => setStatusFilter('pending')}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                statusFilter === 'pending'
-                                    ? 'bg-yellow-500 text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${statusFilter === 'pending'
+                                ? 'bg-yellow-500 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                }`}
                         >
                             Pending
                         </button>
                         <button
                             onClick={() => setStatusFilter('inprogress')}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                statusFilter === 'inprogress'
-                                    ? 'bg-blue-500 text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${statusFilter === 'inprogress'
+                                ? 'bg-blue-500 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                }`}
                         >
                             In Progress
                         </button>
                         <button
                             onClick={() => setStatusFilter('done')}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                statusFilter === 'done'
-                                    ? 'bg-green-500 text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${statusFilter === 'done'
+                                ? 'bg-green-500 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                }`}
                         >
                             Done
                         </button>
                         <button
                             onClick={() => setStatusFilter('canceled')}
-                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                statusFilter === 'canceled'
-                                    ? 'bg-red-500 text-white'
-                                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                            }`}
+                            className={`px-6 py-2 rounded-lg font-semibold transition-colors duration-200 ${statusFilter === 'canceled'
+                                ? 'bg-red-500 text-white'
+                                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                }`}
                         >
                             Canceled
                         </button>
                     </div>
                 </div>
 
-                
-                 
                 {/* Table */}
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                     <div className="overflow-x-auto">
@@ -168,6 +164,7 @@ const MyDonationReq = () => {
                                     <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Blood Group</th>
                                     <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Date & Time</th>
                                     <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
+                                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Action</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200">
@@ -192,11 +189,23 @@ const MyDonationReq = () => {
                                                 <div className="text-xs text-gray-500">{req.donationTime}</div>
                                             </td>
                                             <td className="px-6 py-4">{getStatusBadge(req.donationStatus)}</td>
+                                            <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
+                                                <button
+                                                    onClick={() => setSelectedRequest(req)}
+                                                    className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight hover:bg-green-100 rounded-full transition-colors'
+                                                >
+                                                    <span
+                                                        aria-hidden='true'
+                                                        className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
+                                                    ></span>
+                                                    <span className='relative'>Update Status</span>
+                                                </button>
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="7" className="px-6 py-12 text-center text-gray-500">
+                                        <td colSpan="8" className="px-6 py-12 text-center text-gray-500">
                                             No donation requests found for the selected filter.
                                         </td>
                                     </tr>
@@ -213,11 +222,10 @@ const MyDonationReq = () => {
                         <button
                             onClick={handlePrevious}
                             disabled={currentPage === 0}
-                            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                currentPage === 0
-                                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                    : 'bg-[#EA1241] text-white hover:bg-[#d10f38]'
-                            }`}
+                            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${currentPage === 0
+                                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                : 'bg-[#EA1241] text-white hover:bg-[#d10f38]'
+                                }`}
                         >
                             Previous
                         </button>
@@ -228,11 +236,10 @@ const MyDonationReq = () => {
                                 <button
                                     key={page}
                                     onClick={() => handlePageClick(page)}
-                                    className={`w-10 h-10 rounded-lg font-semibold transition-colors duration-200 ${
-                                        currentPage === page - 1
-                                            ? 'bg-[#EA1241] text-white'
-                                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                                    }`}
+                                    className={`w-10 h-10 rounded-lg font-semibold transition-colors duration-200 ${currentPage === page - 1
+                                        ? 'bg-[#EA1241] text-white'
+                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                        }`}
                                 >
                                     {page}
                                 </button>
@@ -243,19 +250,28 @@ const MyDonationReq = () => {
                         <button
                             onClick={handleNext}
                             disabled={currentPage === totalPages - 1}
-                            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${
-                                currentPage === totalPages - 1
-                                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                    : 'bg-[#EA1241] text-white hover:bg-[#d10f38]'
-                            }`}
+                            className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${currentPage === totalPages - 1
+                                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                : 'bg-[#EA1241] text-white hover:bg-[#d10f38]'
+                                }`}
                         >
                             Next
                         </button>
                     </div>
                 )}
             </div>
+
+            {/* Modal - Rendered once outside the table */}
+            {selectedRequest && (
+                <UpdateStatusModal 
+                    req={selectedRequest} 
+                    refetch={refetch}
+                    isOpen={!!selectedRequest}
+                    closeModal={closeModal}
+                />
+            )}
         </div>
     );
 };
 
-export default MyDonationReq;
+export default VolunteerAllDonationReq;

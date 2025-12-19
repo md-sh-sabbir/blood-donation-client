@@ -7,7 +7,7 @@ const VolunteerMenu = () => {
         <div>
             <MenuItem icon={BiDonateBlood}
                 label='All Donation Requests'
-                address='/all-donation-requests'
+                address='/dashboard/volunteer-all-donation-requests'
             ></MenuItem>
         </div>
     );

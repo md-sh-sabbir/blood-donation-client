@@ -29,10 +29,11 @@ const Navbar = () => {
         <li><NavLink to="/" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Home</NavLink></li>
         <li><NavLink to="/all-donation-requests" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donation requests</NavLink></li>
         <li><NavLink to="/dashboard" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Dashboard</NavLink></li>
+        <li><NavLink to="/search" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Search</NavLink></li>
         {
             user && (<>
-                <li><NavLink to="/my-gallery" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>My Gallery</NavLink></li>
-                <li><NavLink to="/favorites" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>My Favorites</NavLink></li>
+                <li><NavLink to="/donate" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donate</NavLink></li>
+                {/* <li><NavLink to="/favorites" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>My Favorites</NavLink></li> */}
             </>
             )
         }

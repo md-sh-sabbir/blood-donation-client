@@ -10,18 +10,17 @@ import AllDonationReq from "../pages/Dashboard/Donor/AllDonationReq";
 import DonationDetails from "../pages/Dashboard/Donor/DonationDetails";
 import MyDonationReq from "../pages/Dashboard/Donor/MyDonationReq";
 import AllUsers from "../pages/Dashboard/Admin/AllUsers";
+import AllDonationRequest from "../pages/Dashboard/Admin/AllDonationRequest";
+import VolunteerAllDonationReq from "../pages/Dashboard/Volunteer/VolunteerAllDonationReq";
+import SearchRequest from "../pages/SearchRequest/SearchRequest";
+import DashboardHome from "../pages/Dashboard/Common/DashboardHome";
+import Donate from "../pages/Donate/Donate";
+import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 
 export const router = createBrowserRouter([
     {
         path: '/',
         Component: HomeLayout,
-        // children: [
-        //    {
-        //     path: 'register',
-        //     Component: Register
-        //    }
-
-        // ]
     },
     {
         path: 'register',
@@ -41,11 +40,27 @@ export const router = createBrowserRouter([
 
     },
     {
+        path: 'search',
+        element: <SearchRequest></SearchRequest>
+    },
+    {
+        path: 'donate',
+        element: <Donate></Donate>
+    },
+    {
+        path: 'payment-success',
+        element: <PaymentSuccess></PaymentSuccess>
+    },
+    {
         path: '/dashboard',
         element: <PrivateRoute>
             <DashboardLayout></DashboardLayout>
         </PrivateRoute>,
         children: [
+            {
+                index: true,
+                element: <DashboardHome></DashboardHome>
+            },
             {
                path: 'profile',
                element: <Profile></Profile>
@@ -61,6 +76,14 @@ export const router = createBrowserRouter([
             {
                 path: 'my-donation-requests',
                 element: <MyDonationReq></MyDonationReq>
+            },
+            {
+                path: 'admin-all-donation-requests',
+                element: <AllDonationRequest></AllDonationRequest>
+            },
+            {
+                path: 'volunteer-all-donation-requests',
+                element: <VolunteerAllDonationReq></VolunteerAllDonationReq>
             }
         ]
     }
