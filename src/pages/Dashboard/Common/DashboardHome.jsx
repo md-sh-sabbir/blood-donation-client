@@ -1,114 +1,195 @@
-import React, { use } from 'react';
-import { AuthContext } from '../../../providers/AuthContext';
-import { useQuery } from '@tanstack/react-query';
-import useAxios from '../../../hooks/useAxios';
-import { Link } from 'react-router';
+import React, { use } from "react";
+import { AuthContext } from "../../../providers/AuthContext";
+import { useQuery } from "@tanstack/react-query";
+import useAxios from "../../../hooks/useAxios";
+import { Link } from "react-router";
+import useRole from "../../../hooks/useRole";
+import { FaUsers, FaTint, FaDonate } from "react-icons/fa";
 
 const DashboardHome = () => {
+  const { user } = use(AuthContext);
+  const axiosSecure = useAxios();
+  const [role, isRoleLoading] = useRole();
 
-    const { user } = use(AuthContext)
-    console.log(user);
+  /* -------------------- Donor Featured Requests -------------------- */
+  const { data: requests = [], isLoading } = useQuery({
+    queryKey: ["featured-requests"],
+    enabled: role === "donor",
+    queryFn: async () => {
+      const res = await axiosSecure.get("/featured-requests");
+      return res.data;
+    },
+  });
 
-    const axiosSecure = useAxios()
+  /* -------------------- Admin Statistics -------------------- */
+  const { data: users = [] } = useQuery({
+    queryKey: ["users"],
+    enabled: role === "admin",
+    queryFn: async () => (await axiosSecure.get("/users")).data,
+  });
 
-    const { data: requests, isLoading, error } = useQuery({
-        queryKey: ["all-donation-requests"],
-        queryFn: async () => {
-            const res = await axiosSecure.get("/featured-requests");
-            console.log(res.data);
-            return res.data;
-        },
-    });
+  const { data: allRequests = [] } = useQuery({
+    queryKey: ["all-requests"],
+    enabled: role === "admin",
+    queryFn: async () => (await axiosSecure.get("/all-donation-requests")).data,
+  });
 
-    if (isLoading) {
-        return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-[#EA1241] mx-auto mb-4"></div>
-                    <p className="text-xl text-gray-600">Loading donation requests...</p>
-                </div>
-            </div>
-        );
-    }
+  const { data: payments = [] } = useQuery({
+    queryKey: ["payments"],
+    enabled: role === "admin",
+    queryFn: async () => (await axiosSecure.get("/payments")).data,
+  });
 
-    if (error) {
-        return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-xl text-red-600">Error loading donation requests</p>
-                    <p className="text-gray-600 mt-2">{error.message}</p>
-                </div>
-            </div>
-        );
-    }
+  const totalFunding = payments.reduce(
+    (sum, pay) => sum + pay.amount,
+    0
+  );
 
-    const getStatusBadge = (status) => {
-        const statusColors = {
-            pending: 'bg-yellow-100 text-yellow-800 border-yellow-300',
-            inprogress: 'bg-blue-100 text-blue-800 border-blue-300',
-            done: 'bg-green-100 text-green-800 border-green-300',
-            canceled: 'bg-red-100 text-red-800 border-red-300',
-        };
-
-        return (
-            <span className={`px-3 py-1 rounded-full text-sm font-semibold border ${statusColors[status] || 'bg-gray-100 text-gray-800'}`}>
-                {status.charAt(0).toUpperCase() + status.slice(1)}
-            </span>
-        );
-    };
-
-
-
+  if (isRoleLoading || isLoading) {
     return (
-        <div>
-            <div className='my-10'>
-                <h1 className='text-5xl font-bold text-center'><span className='text-red-500'>Welcome</span> {user?.displayName}</h1>
-
-                <div className="overflow-x-auto mt-10">
-                    <table className="table table-zebra">
-                        {/* head */}
-                        <thead>
-                            <tr>
-                                <th>SL No.</th>
-                                <th>Name</th>
-                                <th>Address</th>
-                                <th>Hospital Name</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Blood Group</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Date & Time</th>
-                                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* row 1 */}
-                            {
-                                requests.map((req, index) => <tr>
-                                    <th>{index + 1}</th>
-                                    <td>{req.recipientName}</td>
-                                    <td>{req.fullAddress}, {req.recipientUpazila}, {req.recipientDistrict}</td>
-                                    <td>{req.hospitalName}</td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-semibold">
-                                            {req.bloodGroup}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-sm text-gray-600">
-                                        <div>{req.donationDate}</div>
-                                        <div className="text-xs text-gray-500">{req.donationTime}</div>
-                                    </td>
-                                    <td className="px-6 py-4">{getStatusBadge(req.donationStatus)}</td>
-                                </tr>)
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-            <div className='text-center'>
-                <Link to={'/all-donation-requests'} className='btn bg-blue-100 text-blue-700'>View my all requests</Link>
-            </div>
-        </div>
+      <div className="min-h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
     );
+  }
+
+ 
+  const getStatusBadge = (status) => {
+    const colors = {
+      pending: "bg-yellow-100 text-yellow-800",
+      inprogress: "bg-blue-100 text-blue-800",
+    };
+    return (
+      <span className={`px-3 py-1 rounded-full text-sm ${colors[status]}`}>
+        {status}
+      </span>
+    );
+  };
+
+  return (
+    <div className="p-6">
+      
+      <h1 className="text-5xl font-bold text-center my-10">
+        <span className="text-red-500">Welcome</span> {user?.displayName}
+      </h1>
+
+      
+      {role === "donor" && (
+        <>
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Recipient</th>
+                  <th>Address</th>
+                  <th>Hospital</th>
+                  <th>Blood</th>
+                  <th>Date & Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {requests.map((req, i) => (
+                  <tr key={req._id}>
+                    <td>{i + 1}</td>
+                    <td>{req.recipientName}</td>
+                    <td>
+                      {req.fullAddress}, {req.recipientUpazila},{" "}
+                      {req.recipientDistrict}
+                    </td>
+                    <td>{req.hospitalName}</td>
+                    <td>
+                      <span className="px-2 py-1 bg-red-100 rounded">
+                        {req.bloodGroup}
+                      </span>
+                    </td>
+                    <td>
+                      {req.donationDate}
+                      <br />
+                      <small>{req.donationTime}</small>
+                    </td>
+                    <td>{getStatusBadge(req.donationStatus)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="text-center mt-6">
+            <Link to="/all-donation-requests" className="btn bg-blue-100 text-blue-600">
+              View All Requests
+            </Link>
+          </div>
+        </>
+      )}
+
+      {/* ==================== ADMIN DASHBOARD ==================== */}
+      {role === "admin" && (
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaUsers className="text-4xl text-blue-500" />
+            <div>
+              <h3 className="text-2xl font-bold">{users.length}</h3>
+              <p className="text-gray-500">Total Donors</p>
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaDonate className="text-4xl text-green-500" />
+            <div>
+              <h3 className="text-2xl font-bold">${totalFunding}</h3>
+              <p className="text-gray-500">Total Funding</p>
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaTint className="text-4xl text-red-500" />
+            <div>
+              <h3 className="text-2xl font-bold">
+                {allRequests.length}
+              </h3>
+              <p className="text-gray-500">Donation Requests</p>
+            </div>
+          </div>
+        </div>
+
+)}
+
+
+
+     {/* ==================== ADMIN DASHBOARD ==================== */}
+      {role === "volunteer" && (
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaUsers className="text-4xl text-blue-500" />
+            <div>
+              <h3 className="text-2xl font-bold">{users.length}</h3>
+              <p className="text-gray-500">Total Donors</p>
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaDonate className="text-4xl text-green-500" />
+            <div>
+              <h3 className="text-2xl font-bold">${totalFunding}</h3>
+              <p className="text-gray-500">Total Funding</p>
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-xl p-6 flex items-center gap-4">
+            <FaTint className="text-4xl text-red-500" />
+            <div>
+              <h3 className="text-2xl font-bold">
+                {allRequests.length}
+              </h3>
+              <p className="text-gray-500">Donation Requests</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default DashboardHome;
