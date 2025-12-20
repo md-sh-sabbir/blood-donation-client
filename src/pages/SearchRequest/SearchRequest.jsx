@@ -73,7 +73,7 @@ const SearchRequest = () => {
                             upazilas.map(u => <option value={u?.name} key={u.id}>{u?.name}</option>)
                         }
                     </select>
-                    <button className="btn">Search</button>
+                    <button className="btn bg-[#EA1241] text-white">Search</button>
                 </form>
             </div>
 
