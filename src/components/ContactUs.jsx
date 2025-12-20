@@ -20,7 +20,7 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    // console.log('Form submitted:', formData);
     // Add your form submission logic here
     alert('Thank you for contacting us! We will get back to you soon.');
     setFormData({

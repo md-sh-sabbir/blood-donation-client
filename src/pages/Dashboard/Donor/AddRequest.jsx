@@ -20,13 +20,13 @@ const AddRequest = () => {
     useEffect(() => {
         axios.get('/upazilas.json')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setUpazilas(res.data.upazilas)
             })
 
         axios.get('/districts.json')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setDistricts(res.data.districts)
             })
     }, [])

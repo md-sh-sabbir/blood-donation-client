@@ -17,9 +17,9 @@ const Navbar = () => {
     }, [theme])
 
 
-    const handleTheme = (checked) => {
-        setTheme(checked ? "dark" : "light")
-    }
+    // const handleTheme = (checked) => {
+    //     setTheme(checked ? "dark" : "light")
+    // }
 
     const defaultLinkClass = 'font-semibold text-base'
 
@@ -30,13 +30,8 @@ const Navbar = () => {
         <li><NavLink to="/all-donation-requests" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donation requests</NavLink></li>
         <li><NavLink to="/dashboard" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Dashboard</NavLink></li>
         <li><NavLink to="/search" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Search</NavLink></li>
-        {
-            user && (<>
-                <li><NavLink to="/donate" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donate</NavLink></li>
-                {/* <li><NavLink to="/favorites" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>My Favorites</NavLink></li> */}
-            </>
-            )
-        }
+        <li><NavLink to="/donate" className={({ isActive }) => `${defaultLinkClass} ${isActive ? activeLinkClass : ''}`}>Donate</NavLink></li>
+       
     </>
 
     const handleLogOut = () => {

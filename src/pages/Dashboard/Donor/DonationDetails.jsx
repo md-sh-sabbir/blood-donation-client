@@ -10,7 +10,7 @@ const DonationDetails = () => {
     const { state } = useLocation();
     const { user } = useContext(AuthContext);
     const { id } = useParams();
-    const navigate = useNavigate(); // Added navigate
+    const navigate = useNavigate(); 
     const axiosSecure = useAxios();
     const [isSubmitting, setIsSubmitting] = useState(false); // Added loading state
 
@@ -30,7 +30,7 @@ const DonationDetails = () => {
             const donationId = donationData?._id || id;
             const result = await axiosSecure.patch(`/donation-requests/${donationId}`);
             
-            console.log(result.data);
+            // console.log(result.data);
             toast.success('Request status has been updated');
             
             // Close the modal

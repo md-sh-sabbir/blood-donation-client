@@ -8,10 +8,7 @@ import { MdDashboard, MdPersonOutline } from 'react-icons/md'
 import { BiDonateBlood } from 'react-icons/bi'
 import { IoAddCircleOutline, IoSettingsOutline } from 'react-icons/io5'
 
-// User Menu
-// import AdminMenu from './Menu/AdminMenu'
-// import SellerMenu from './Menu/SellerMenu'
-// import CustomerMenu from './Menu/CustomerMenu'
+
 import useRole from '../../hooks/useRole'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 import { AuthContext } from '../../providers/AuthContext'
@@ -98,66 +95,7 @@ const Sidebar = () => {
                                 address='/dashboard/profile'
                             />
 
-                            {/* Dashboard */}
-                            {/* <NavLink
-                                to='/dashboard'
-                                end
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
-                                        isActive
-                                            ? 'bg-[#EA1241] text-white'
-                                            : 'text-gray-700 hover:bg-gray-100'
-                                    }`
-                                }
-                            >
-                                <MdDashboard className='w-5 h-5' />
-                                <span className='ml-3 font-medium'>Dashboard</span>
-                            </NavLink> */}
-
-                            {/* My Profile */}
-                            {/* <NavLink
-                                to='/dashboard/profile'
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
-                                        isActive
-                                            ? 'bg-[#EA1241] text-white'
-                                            : 'text-gray-700 hover:bg-gray-100'
-                                    }`
-                                }
-                            >
-                                <MdPersonOutline className='w-5 h-5' />
-                                <span className='ml-3 font-medium'>My Profile</span>
-                            </NavLink> */}
-
-                            {/* Donation Requests */}
-                            {/* <NavLink
-                                to='/dashboard/donation-requests'
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
-                                        isActive
-                                            ? 'bg-[#EA1241] text-white'
-                                            : 'text-gray-700 hover:bg-gray-100'
-                                    }`
-                                }
-                            >
-                                <BiDonateBlood className='w-5 h-5' />
-                                <span className='ml-3 font-medium'>Donation Requests</span>
-                            </NavLink> */}
-
-                            {/* Add Request */}
-                            {/* <NavLink
-                                to='/dashboard/add-request'
-                                className={({ isActive }) =>
-                                    `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
-                                        isActive
-                                            ? 'bg-[#EA1241] text-white'
-                                            : 'text-gray-700 hover:bg-gray-100'
-                                    }`
-                                }
-                            >
-                                <IoAddCircleOutline className='w-5 h-5' />
-                                <span className='ml-3 font-medium'>Add Request</span>
-                            </NavLink> */}
+                            
 
                             {/* Role-Based Menu */}
                             {role === 'donor' && <DonorMenu />}
@@ -170,21 +108,7 @@ const Sidebar = () => {
                     <div className='mt-auto'>
                         <hr className='mb-4 border-gray-200' />
 
-                        {/* Settings */}
-                        {/* <NavLink
-                            to='/dashboard/settings'
-                            className={({ isActive }) =>
-                                `flex items-center px-4 py-3 rounded-lg transition-colors duration-200 ${
-                                    isActive
-                                        ? 'bg-[#EA1241] text-white'
-                                        : 'text-gray-700 hover:bg-gray-100'
-                                }`
-                            }
-                        >
-                            <IoSettingsOutline className='w-5 h-5' />
-                            <span className='ml-3 font-medium'>Settings</span>
-                        </NavLink> */}
-
+                        
                         {/* Logout */}
                         <button
                             onClick={handleLogOut}

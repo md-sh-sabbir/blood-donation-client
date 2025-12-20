@@ -16,6 +16,7 @@ import SearchRequest from "../pages/SearchRequest/SearchRequest";
 import DashboardHome from "../pages/Dashboard/Common/DashboardHome";
 import Donate from "../pages/Donate/Donate";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
+import AddVolunteer from "../pages/Dashboard/Admin/AddVolunteer";
 
 export const router = createBrowserRouter([
     {
@@ -45,7 +46,9 @@ export const router = createBrowserRouter([
     },
     {
         path: 'donate',
-        element: <Donate></Donate>
+        element: <PrivateRoute>
+            <Donate></Donate>
+        </PrivateRoute>
     },
     {
         path: 'payment-success',
@@ -84,6 +87,10 @@ export const router = createBrowserRouter([
             {
                 path: 'volunteer-all-donation-requests',
                 element: <VolunteerAllDonationReq></VolunteerAllDonationReq>
+            },
+            {
+                path: 'add-volunteer',
+                element: <AddVolunteer></AddVolunteer>
             }
         ]
     }

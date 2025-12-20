@@ -15,7 +15,7 @@ const PaymentSuccess = () => {
         if (sessionId) {
             axiosInstance.post(`/payment-success?session_id=${sessionId}`)
                 .then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 })
         }
     }, [sessionId, axiosInstance])

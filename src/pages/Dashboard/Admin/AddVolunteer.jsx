@@ -1,12 +1,12 @@
 import React, { use, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
-import { AuthContext } from '../providers/AuthContext';
 import axios from 'axios';
-import useAxios from '../hooks/useAxios';
-import Navbar from '../components/Navbar';
+import { AuthContext } from '../../../providers/AuthContext';
+import useAxios from '../../../hooks/useAxios';
+import Navbar from '../../../components/Navbar';
 
-const Register = () => {
+const AddVolunteer = () => {
 
     const { user, createUser, setUser, updateUser, emailVerification } = use(AuthContext)
     const navigate = useNavigate()
@@ -40,10 +40,10 @@ const Register = () => {
         setError('');
         setSuccess('');
 
-        if (user) {
-            setError('Please log out first');
-            return;
-        }
+        // if (user) {
+        //     setError('Please log out first');
+        //     return;
+        // }
 
         const form = event.target;
         const name = form.name.value;
@@ -92,7 +92,8 @@ const Register = () => {
                 blood,
                 district,
                 upazila,
-                status: 'active'
+                status: 'active',
+                role: 'volunteer'
             };
 
             await axiosSecure.post('/users', userData);
@@ -114,11 +115,10 @@ const Register = () => {
 
     return (
         <div>
-            <Navbar></Navbar>
             <div className='flex justify-center h-[calc(100vh-182px)] items-center py-10'>
                 <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 border-white border-1 shadow-2xl">
                     <div className="card-body">
-                        <h1 className="text-3xl font-bold">Register now!</h1>
+                        <h1 className="text-3xl font-bold">Add Volunteer now!</h1>
                         <form onSubmit={handleRegister}>
                             <fieldset className="fieldset">
                                 <label className="label">Name</label>
@@ -197,7 +197,7 @@ const Register = () => {
                                 }
 
 
-                                <button className="btn btn-neutral mt-4 mb-1">Register</button>
+                                <button className="btn btn-neutral mt-4 mb-1">Add Volunteer</button>
 
                                 {/* <button onClick={handleGoogleSignIn} type="button" className="btn bg-white text-black border-[#e5e5e5]">
                                 <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
@@ -213,4 +213,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default AddVolunteer;
