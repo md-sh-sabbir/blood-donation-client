@@ -79,7 +79,7 @@ const Navbar = () => {
                     </div>
                     <div className="navbar-end">
                         <div className='flex items-center gap-5'>
-                            <label className="flex cursor-pointer gap-2">
+                            {/* <label className="flex cursor-pointer gap-2">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"
@@ -109,7 +109,7 @@ const Navbar = () => {
                                     strokeLinejoin="round">
                                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                                 </svg>
-                            </label>
+                            </label> */}
                             {
                                 user ? (
                                     <div className="login-btn flex gap-3 lg:gap-5 items-center">
