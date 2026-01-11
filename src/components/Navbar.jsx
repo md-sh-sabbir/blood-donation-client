@@ -46,7 +46,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="font-inter shadow-sm relative z-50">
+        <div className="font-inter bg-white shadow-sm sticky top-0 w-full z-50">
             <Container>
                 <div className='navbar'>
                     <div className="navbar-start">

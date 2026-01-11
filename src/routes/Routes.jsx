@@ -17,6 +17,11 @@ import DashboardHome from "../pages/Dashboard/Common/DashboardHome";
 import Donate from "../pages/Donate/Donate";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 import AddVolunteer from "../pages/Dashboard/Admin/AddVolunteer";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import BlogPage from "../pages/BlogPage/BlogPage";
+import ContactPage from "../pages/ContactPage/ContactPage";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import TermsConditionsPage from "../pages/TermsConditionsPage/TermsConditionsPage";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +54,26 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
             <Donate></Donate>
         </PrivateRoute>
+    },
+    {
+        path: 'about-us',
+        element: <AboutUs></AboutUs>
+    },
+    {
+        path: 'blog-page',
+        element: <BlogPage></BlogPage>
+    },
+    {
+        path: 'contact-page',
+        element: <ContactPage></ContactPage>
+    },
+    {
+        path: 'privacy-policy',
+        element: <PrivacyPolicy></PrivacyPolicy>
+    },
+    {
+        path: 'terms-conditions',
+        element: <TermsConditionsPage></TermsConditionsPage>
     },
     {
         path: 'payment-success',

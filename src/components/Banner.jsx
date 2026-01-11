@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Banner = () => {
     return (
-        <div className='relative h-[calc(100vh-82px)]  w-full'>
+        <div className='relative h-[calc(100vh-82px)] w-full'>
             {/* Banner Image */}
             <img
                 src={banner}

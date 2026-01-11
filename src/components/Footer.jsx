@@ -76,27 +76,27 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/donation-requests" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/all-donation-requests" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> Donation Requests
                 </Link>
               </li>
               <li>
-                <Link to="/search-donors" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/search" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> Search Donors
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/blog-page" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> Blog
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/about-us" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> About Us
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/contact-page" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> Contact Us
                 </Link>
               </li>
@@ -108,7 +108,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4 text-white">Resources</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/how-to-donate" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/donate" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> How to Donate
                 </Link>
               </li>
@@ -133,7 +133,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
+                <Link to="/terms-conditions" className="text-gray-400 hover:text-[#EA1241] transition-colors duration-300 flex items-center">
                   <span className="mr-2">→</span> Terms & Conditions
                 </Link>
               </li>
