@@ -64,7 +64,7 @@ const PaymentCancelled = () => {
                 </div>
 
                 <p className='text-sm text-gray-500 mt-6'>
-                    Need help? <Link to='/contact' className='text-red-500 hover:text-red-700 underline'>Contact Support</Link>
+                    Need help? <Link to='/contact-page' className='text-red-500 hover:text-red-700 underline'>Contact Support</Link>
                 </p>
             </div>
         </div>
