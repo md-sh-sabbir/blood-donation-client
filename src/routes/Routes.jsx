@@ -22,6 +22,7 @@ import BlogPage from "../pages/BlogPage/BlogPage";
 import ContactPage from "../pages/ContactPage/ContactPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
 import TermsConditionsPage from "../pages/TermsConditionsPage/TermsConditionsPage";
+import PaymentCancelled from "../pages/PaymentCancelled/PaymentCancelled";
 
 export const router = createBrowserRouter([
     {
@@ -78,6 +79,10 @@ export const router = createBrowserRouter([
     {
         path: 'payment-success',
         element: <PaymentSuccess></PaymentSuccess>
+    },
+    {
+        path: 'payment-cancelled',
+        element: <PaymentCancelled></PaymentCancelled>
     },
     {
         path: '/dashboard',
